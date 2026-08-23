@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국내 친환경 농식품 시장 신규 진입 타당성 분석 대시보드</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        eco: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-2 sm:mb-0">
+                <div class="bg-emerald-600 p-2.5 rounded-xl text-white shadow-inner">
+                    <i class="fa-solid fa-seedling text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">친환경 농식품 시장 신규 진입 타당성 분석</h1>
+                    <p class="text-xs text-slate-400">시장지능(Market Intelligence) 수석 컨설턴트 | 2026.01.15</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-semibold rounded-full flex items-center gap-1.5">
+                    <i class="fa-solid fa-triangle-exclamation"></i> 투자 신뢰 수준: 중간 (Moderate / 보수적)
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
+        
+        <!-- Summary Alert Banner -->
+        <div class="bg-gradient-to-r from-red-900/90 to-slate-900 border-l-4 border-red-500 text-white p-6 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2 text-red-400 font-bold text-sm tracking-wide uppercase">
+                    <i class="fa-solid fa-circle-exclamation"></i> 최종 진단 결론 (Final Verdict)
+                </div>
+                <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">"자체 브랜드 기반의 오프라인 전면 진입은 부적합함"</h2>
+                <p class="text-slate-300 text-sm max-w-3xl">
+                    역성장 추세, 공급망 붕괴(인증면적 6.8만ha로 급감), 1.2조 원의 좀비 통계 허상을 간파하고 <span class="text-emerald-400 font-semibold">저위험 고효율(온라인/PB/가공) 단계별 진입 전략</span>을 채택해야 합니다.
+                </p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/10 text-center shrink-0">
+                <span class="block text-xs text-slate-300">핵심 전략 지향점</span>
+                <span class="text-emerald-400 font-bold text-sm">Low-Risk, High-Efficiency</span>
+            </div>
+        </div>
+
+        <!-- Metric KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">KREI 전망치 (좀비 통계)</span>
+                    <span class="p-2 bg-blue-50 text-blue-600 rounded-lg text-sm"><i class="fa-solid fa-chart-line"></i></span>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-slate-900">2조 1,360억</span>
+                    <span class="text-xs text-slate-500 font-medium">(2025 전망)</span>
+                </div>
+                <p class="mt-2 text-xs text-rose-600 font-medium flex items-center gap-1">
+                    <i class="fa-solid fa-arrow-trend-down"></i> 구조적 착시 (과거 2017년 지표 기반)
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">aT 실판매 기준 실적</span>
+                    <span class="p-2 bg-rose-50 text-rose-600 rounded-lg text-sm"><i class="fa-solid fa-receipt"></i></span>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-slate-900">9,045억 원</span>
+                    <span class="text-xs text-rose-500 font-medium">3년 연속 감소</span>
+                </div>
+                <p class="mt-2 text-xs text-slate-500 font-medium">
+                    1.2조 원의 괴리 = <span class="text-rose-600 font-bold">실현되지 않은 재고</span>
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">친환경 인증면적 축소</span>
+                    <span class="p-2 bg-amber-50 text-amber-600 rounded-lg text-sm"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i></span>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-slate-900">68,165 ha</span>
+                    <span class="text-xs text-amber-600 font-medium">-16.7% 축소</span>
+                </div>
+                <p class="mt-2 text-xs text-slate-500 font-medium">
+                    2020년(81,827ha) 대비 공급 인프라 공동화
+                </p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">소비자 비구매 원인 1위</span>
+                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm"><i class="fa-solid fa-tag"></i></span>
+                </div>
+                <div class="mt-3 flex items-baseline gap-2">
+                    <span class="text-2xl font-bold text-slate-900">65.1%</span>
+                    <span class="text-xs text-emerald-600 font-medium">가격 저항</span>
+                </div>
+                <p class="mt-2 text-xs text-slate-500 font-medium">
+                    시장 가격 프리미엄 67~96% (임계치 초과)
+                </p>
+            </div>
+        </div>
+
+        <!-- Interactive Section / Tab Navigation -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+            <div class="flex flex-wrap border-b border-slate-200 bg-slate-100/60 p-2 gap-2" id="tab-headers">
+                <button onclick="switchTab('chart-view')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all bg-white text-emerald-700 shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-chart-column"></i> 데이터 괴리 및 시장 규모 비교
+                </button>
+                <button onclick="switchTab('supply-view')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50 flex items-center gap-2">
+                    <i class="fa-solid fa-warehouse"></i> 공급망 및 재무 해자
+                </button>
+                <button onclick="switchTab('strategy-view')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50 flex items-center gap-2">
+                    <i class="fa-solid fa-chess-knight"></i> 단계별 진입 전략 & 트리거
+                </button>
+            </div>
+
+            <!-- Tab Content 1: Charts & Data Discrepancy -->
+            <div id="chart-view" class="tab-content p-6 sm:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <div class="inline-block px-3 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg">Critical Diagnosis</div>
+                        <h3 class="text-xl font-bold text-slate-900">1.2조 원의 허상: KREI vs aT 실적 괴리</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            업계에서 인용되는 KREI의 2조 원대 전망치는 2017년 과거 지표를 답습한 <b>'좀비 통계'</b>입니다. 실제 소비자 소매 지출을 나타내는 aT 실적은 <b>2021년 1조 143억 원에서 2023년 9,045억 원으로 3년 연속 가파르게 하락</b>하고 있습니다.
+                        </p>
+                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs text-slate-700">
+                            <div class="flex justify-between font-semibold border-b border-slate-200 pb-1">
+                                <span>연도별 소매 실판매액 (aT)</span>
+                                <span>금액</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>2021년 확정</span>
+                                <span class="font-bold text-slate-900">1조 143억 원</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>2022년 확정</span>
+                                <span class="font-bold text-slate-900">9,858억 원 (-2.8%)</span>
+                            </div>
+                            <div class="flex justify-between text-rose-600 font-medium">
+                                <span>2023년 확정</span>
+                                <span class="font-bold">9,045억 원 (-8.2%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col items-center justify-center">
+                        <div class="w-full max-w-md h-72">
+                            <canvas id="marketComparisonChart"></canvas>
+                        </div>
+                        <span class="text-xs text-slate-400 mt-4 text-center">그림 1: KREI 출하·시산 기준 전망치 vs aT 소매 실판매 확정치 비교</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 2: Supply & Competitor Moat -->
+            <div id="supply-view" class="tab-content hidden p-6 sm:p-8 space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">
+                        <div class="p-3 bg-amber-100 text-amber-700 rounded-xl w-fit">
+                            <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">생산 기반의 붕괴 (원료 리스크)</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            친환경 인증면적은 2020년 81,827ha에서 2024년 68,165ha로 급감했습니다. 무농약 인증면적 또한 10.1% 줄어들며 <b>원료 조달 COGS(제조원가)의 영구적 상승</b>을 초래하고 있습니다.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">
+                        <div class="p-3 bg-emerald-100 text-emerald-700 rounded-xl w-fit">
+                            <i class="fa-solid fa-shield-halved text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">기존 강자의 재무적 해자</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            업계 리더 <b>한살림</b>은 공급 규모 5,118억 원, <b>부채비율 31.2%</b>의 극단적 재무 안정성과 100만 충성 조합원을 보유. 단기간 내 가격 경쟁력 확보가 불가능합니다.
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">
+                        <div class="p-3 bg-rose-100 text-rose-700 rounded-xl w-fit">
+                            <i class="fa-solid fa-store-slash text-lg"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-base">오프라인 모델의 붕괴 사례</h4>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            <b>초록마을</b>이 납품업체 172곳에 258억 원의 상거래채권을 미지급하며 회생 절차에 진입한 것은 고정비 부담이 큰 오프라인 프랜차이즈 모델의 한계를 증명합니다.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-900 text-white p-6 rounded-2xl shadow-inner flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div class="space-y-2">
+                        <span class="bg-emerald-700 text-emerald-100 text-xs px-2.5 py-1 rounded-full font-semibold">유일한 생존 채널 벤치마크</span>
+                        <h4 class="text-lg font-bold">오아시스마켓 모델</h4>
+                        <p class="text-xs text-emerald-200/90 max-w-2xl leading-relaxed">
+                            오프라인 전문점 모델이 붕괴하는 가운데, 온라인 새벽배송 기반의 <b>오아시스마켓</b>이 유일하게 영업 흑자를 기록 중입니다. 신규 진입자는 반드시 <b>온라인 플랫폼 중심의 고효율 구조</b>를 지향해야 합니다.
+                        </p>
+                    </div>
+                    <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center shrink-0">
+                        <span class="block text-xs text-emerald-300">온라인/새벽배송 세그먼트 성장률</span>
+                        <span class="text-2xl font-black text-white">+35.1%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content 3: Strategy & Triggers -->
+            <div id="strategy-view" class="tab-content hidden p-6 sm:p-8 space-y-8">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">단계별 로드맵 (Low-Risk, High-Efficiency)</h3>
+                    <p class="text-sm text-slate-600 mb-6">자체 브랜드로 오프라인에 직접 진입하는 대신, 검증된 세그먼트를 통한 점진적 진입을 권장합니다.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="border border-emerald-200 bg-emerald-50/50 p-6 rounded-2xl space-y-3 relative">
+                            <span class="absolute top-4 right-4 bg-emerald-600 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs">1</span>
+                            <h4 class="font-bold text-emerald-900">1단계: 저위험 공급</h4>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                이마트 자연주의 등 <b>대형마트 PB 및 온라인 플랫폼(오아시스, 컬리) 대상 유기가공식품 OEM/ODM 공급</b>. 마케팅 비용을 최소화하고 제조 역량을 검증합니다.
+                            </p>
+                        </div>
+                        <div class="border border-slate-200 bg-slate-50 p-6 rounded-2xl space-y-3 relative">
+                            <span class="absolute top-4 right-4 bg-slate-700 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs">2</span>
+                            <h4 class="font-bold text-slate-900">2단계: D2C 확장</h4>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                플랫폼 내 성과가 검증된 품목을 중심으로 리스크가 낮은 <b>온라인 전용 자체 브랜드(Online-Only Brand)</b>를 론칭하여 충성 고객을 확보합니다.
+                            </p>
+                        </div>
+                        <div class="border border-slate-200 bg-slate-50 p-6 rounded-2xl space-y-3 relative">
+                            <span class="absolute top-4 right-4 bg-slate-700 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs">3</span>
+                            <h4 class="font-bold text-slate-900">3단계: 선택적 확장</h4>
+                            <p class="text-xs text-slate-700 leading-relaxed">
+                                시장 반등 트리거 포인트(Trigger Points)가 완벽히 충족될 경우에만 제한적으로 오프라인 진출 및 플래그십 확장을 재검토합니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-slate-200 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-rose-50 border border-rose-200 p-6 rounded-2xl space-y-3">
+                        <div class="flex items-center gap-2 text-rose-700 font-bold text-sm">
+                            <i class="fa-solid fa-ban"></i> 진입 중단 임계치 (Immediate Exit)
+                        </div>
+                        <p class="text-xs text-rose-900/80 leading-relaxed">
+                            친환경 인증면적이 <b>6만 ha 미만으로 지속 감소</b>할 경우, 국산 원료 기반 사업은 경제적 타당성을 상실한 것으로 간주하고 투자를 즉시 철수합니다.
+                        </p>
+                    </div>
+
+                    <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl space-y-3">
+                        <div class="flex items-center gap-2 text-emerald-700 font-bold text-sm">
+                            <i class="fa-solid fa-flag-checkered"></i> 본격 확장 트리거 (Scale-up Triggers)
+                        </div>
+                        <ul class="text-xs text-emerald-900/80 space-y-1.5 list-disc list-inside">
+                            <li>aT 소매 매출액이 <b>1.1조 원(2021년 수준)을 2년 연속 상회</b></li>
+                            <li>온라인 채널 비중이 전체 시장의 <b>40%를 돌파</b></li>
+                            <li>대형마트 PB 제품의 영업이익률이 안정적으로 방어됨</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-xs gap-4">
+            <p>© 2026 시장지능(Market Intelligence) 전략기획본부. All rights reserved.</p>
+            <div class="flex items-center space-x-6">
+                <span>데이터 소스: 한국농촌경제연구원(KREI), 한국농수산식품유통공사(aT)</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chart.js Script for Data Visualization -->
+    <script>
+        // Tab Switching Logic
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm');
+                btn.classList.add('text-slate-600', 'hover:bg-white/50');
+            });
+            event.currentTarget.classList.add('bg-white', 'text-emerald-700', 'shadow-sm');
+            event.currentTarget.classList.remove('text-slate-600', 'hover:bg-white/50');
+        }
+
+        // Initialize Chart.js
+        window.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('marketComparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['2021년', '2022년', '2023년 / 2025년 전망'],
+                    datasets: [
+                        {
+                            label: 'KREI 전망치 (출하·시산)',
+                            data: [19500, 20400, 21360],
+                            backgroundColor: '#94a3b8',
+                            borderRadius: 6,
+                        },
+                        {
+                            label: 'aT 소매실적 (실판매)',
+                            data: [10143, 9858, 9045],
+                            backgroundColor: '#16a34a',
+                            borderRadius: 6,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    family: 'Pretendard',
+                                    size: 11
+                                },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += context.parsed.y.toLocaleString() + ' 억원';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toLocaleString() + '억';
+                                },
+                                font: {
+                                    size: 10
+                                }
+                            },
+                            grid: {
+                                color: '#f1f5f9'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 10
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
