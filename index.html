@@ -1,396 +1,208 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>국내 친환경 농식품 시장 신규 진입 타당성 분석 대시보드</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js CDN for visualizations -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Pretendard', 'sans-serif'],
-                    },
-                    colors: {
-                        eco: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                            900: '#14532d'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>'마감상회' 통합 MVP 기획서 (Phase 1~3)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f8fafc;--card:#ffffff;--card2:#f1f5f9;--border:rgba(0,0,0,.1);--border2:rgba(0,0,0,.15);--text:#1e293b;--muted:#64748b;--dim:#94a3b8;--accent:#2563eb;--accent2:#6366f1;--amber:#d97706;--green:#059669;--red:#dc2626;--orange:#ea580c;--r:10px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:"Noto Sans KR","Segoe UI",system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6;}
+.wrap{max-width:1400px;margin:0 auto;padding:36px 28px 60px;}
+.page-title{font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px;line-height:1.35;word-break:keep-all;}
+.lead{font-size:15px;font-weight:700;color:var(--green);line-height:1.6;margin-bottom:6px;word-break:keep-all;}
+.meta{font-size:12px;color:var(--dim);margin-bottom:20px;}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.toc a{font-size:12px;font-weight:700;color:var(--text);background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;text-decoration:none;}
+.toc a:hover{border-color:var(--accent);color:var(--accent);}
+.sum-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.sum-c{background:var(--card);border:1px solid;border-radius:var(--r);padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.sum-icon{font-size:20px;opacity:.85;}
+.sum-v{font-family:"Noto Sans KR",sans-serif;font-size:17px;font-weight:700;line-height:1.25;}
+.sum-l{font-size:10px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-top:3px;}
+.card-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px;}
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;}
+.section-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.sec-body{font-size:13px;color:var(--text);line-height:1.75;word-break:keep-all;white-space:pre-wrap;}
+.scope-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.scope-table th{text-align:left;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:6px 10px;border-bottom:1px solid var(--border2);}
+.scope-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top;word-break:keep-all;}
+.ph{display:inline-block;font-size:10px;font-weight:800;border-radius:5px;padding:1px 6px;margin-right:5px;white-space:nowrap;}
+.ph1{background:rgba(5,150,105,.12);color:var(--green);}
+.ph2{background:rgba(37,99,235,.12);color:var(--accent);}
+.ph3{background:rgba(99,102,241,.12);color:var(--accent2);}
+.phase-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.phase{border-radius:var(--r);padding:14px 16px;border:1px solid;}
+.phase.p1{background:rgba(5,150,105,.05);border-color:rgba(5,150,105,.25);}
+.phase.p2{background:rgba(37,99,235,.05);border-color:rgba(37,99,235,.25);}
+.phase.p3{background:rgba(99,102,241,.05);border-color:rgba(99,102,241,.25);}
+.phase-h{font-size:12.5px;font-weight:800;margin-bottom:8px;}
+.phase.p1 .phase-h{color:var(--green);}
+.phase.p2 .phase-h{color:var(--accent);}
+.phase.p3 .phase-h{color:var(--accent2);}
+.phase-body{font-size:12px;line-height:1.65;word-break:keep-all;white-space:pre-wrap;}
+.flow-step{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border2);}
+.flow-step:last-child{border-bottom:none;}
+.flow-n{flex:none;width:22px;height:22px;border-radius:50%;background:var(--card2);color:var(--muted);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.flow-t{font-size:12.5px;line-height:1.6;word-break:keep-all;}
+.footer{margin-top:36px;text-align:center;font-size:11px;color:var(--dim);}
+@media(min-width:820px){.card-grid{grid-template-columns:1fr 1fr;}.section-card.wide{grid-column:1/-1;}}
+@media(max-width:640px){.sum-row{grid-template-columns:repeat(2,1fr);}.phase-row{grid-template-columns:1fr;}.wrap{padding:24px 16px 40px;}}
+@media print{@page{size:A4;margin:14mm;}body{background:#fff;}.wrap{padding:0;max-width:none;}.section-card,.sum-c{break-inside:avoid;}.footer{margin-top:24px;}.toc{display:none;}}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+<body>
+<div class="wrap">
 
-    <header class="bg-slate-900 text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center">
-            <div class="flex items-center space-x-3 mb-2 sm:mb-0">
-                <div class="bg-emerald-600 p-2.5 rounded-xl text-white shadow-inner">
-                    <i class="fa-solid fa-seedling text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-bold tracking-tight">친환경 농식품 시장 신규 진입 타당성 분석</h1>
-                    <p class="text-xs text-slate-400">시장지능(Market Intelligence) 수석 컨설턴트 | 2026.01.15</p>
-                </div>
-            </div>
-            <div class="flex items-center space-x-2">
-                <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-semibold rounded-full flex items-center gap-1.5">
-                    <i class="fa-solid fa-triangle-exclamation"></i> 투자 신뢰 수준: 중간 (Moderate / 보수적)
-                </span>
-            </div>
-        </div>
-    </header>
+<div class="page-title">📚 '마감상회' 통합 MVP 기획서</div>
+<div class="lead">Phase 1(검증) → Phase 2(확장) → Phase 3(차별화)을 하나의 로드맵으로 통합</div>
+<div class="meta"><b style="color:var(--muted)">에코푸드 서승희</b> &nbsp;·&nbsp; 2026-08-25 &nbsp;·&nbsp; 원기획서(2026-08-24) 기반 · <span class="ph ph1">Phase1</span>=MVP검증 &nbsp;<span class="ph ph2">Phase2</span>=확장 &nbsp;<span class="ph ph3">Phase3</span>=차별화</div>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow w-full space-y-8">
-        
-        <!-- Summary Alert Banner -->
-        <div class="bg-gradient-to-r from-red-900/90 to-slate-900 border-l-4 border-red-500 text-white p-6 rounded-2xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div class="space-y-1">
-                <div class="flex items-center gap-2 text-red-400 font-bold text-sm tracking-wide uppercase">
-                    <i class="fa-solid fa-circle-exclamation"></i> 최종 진단 결론 (Final Verdict)
-                </div>
-                <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">"자체 브랜드 기반의 오프라인 전면 진입은 부적합함"</h2>
-                <p class="text-slate-300 text-sm max-w-3xl">
-                    역성장 추세, 공급망 붕괴(인증면적 6.8만ha로 급감), 1.2조 원의 좀비 통계 허상을 간파하고 <span class="text-emerald-400 font-semibold">저위험 고효율(온라인/PB/가공) 단계별 진입 전략</span>을 채택해야 합니다.
-                </p>
-            </div>
-            <div class="bg-white/10 backdrop-blur-md px-5 py-3 rounded-xl border border-white/10 text-center shrink-0">
-                <span class="block text-xs text-slate-300">핵심 전략 지향점</span>
-                <span class="text-emerald-400 font-bold text-sm">Low-Risk, High-Efficiency</span>
-            </div>
-        </div>
+<div class="toc">
+<a href="#goal">핵심가설</a>
+<a href="#scope">범위 매트릭스</a>
+<a href="#roadmap">로드맵</a>
+<a href="#flow">사용자 플로우</a>
+<a href="#feature">기능명세</a>
+<a href="#kpi">KPI</a>
+<a href="#risk">리스크</a>
+<a href="#next">Next Step</a>
+</div>
 
-        <!-- Metric KPI Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">KREI 전망치 (좀비 통계)</span>
-                    <span class="p-2 bg-blue-50 text-blue-600 rounded-lg text-sm"><i class="fa-solid fa-chart-line"></i></span>
-                </div>
-                <div class="mt-3 flex items-baseline gap-2">
-                    <span class="text-2xl font-bold text-slate-900">2조 1,360억</span>
-                    <span class="text-xs text-slate-500 font-medium">(2025 전망)</span>
-                </div>
-                <p class="mt-2 text-xs text-rose-600 font-medium flex items-center gap-1">
-                    <i class="fa-solid fa-arrow-trend-down"></i> 구조적 착시 (과거 2017년 지표 기반)
-                </p>
-            </div>
+<div class="section-card wide" style="border-color:rgba(217,119,6,.35);background:rgba(217,119,6,.05);margin-bottom:20px;">
+<div class="section-title" style="color:var(--amber);">📌 업데이트 (2026-09-05) — 공급자 범위 재정의</div>
+<div class="sec-body"><b>공급자 대상: 반경 3~5km 내 로컬 소상공인(비프랜차이즈 개인사업자) 매장 한정</b> (예: 동네 마트, 정육점, 반찬가게, 개인 빵집 등). 대기업 마트(예: 이마트), 프랜차이즈 베이커리(예: 뚜레쥬르), 편의점 등 대형 유통망은 Phase1~3 전체에서 공급자 대상에서 제외합니다. 법인 간 API 연동·가맹본부 계약 등 법적·기술적 복잡성을 회피하고, 매장이 직접 등록하는 단순한 구조에 집중하기 위함이며, 이는 원기획서(2026-08-24)에도 소급 반영되었습니다. 아래 문서 전반의 &#39;공급자&#39;·&#39;매장&#39;·&#39;상점주&#39; 표현은 모두 이 정의를 따릅니다.</div>
+</div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">aT 실판매 기준 실적</span>
-                    <span class="p-2 bg-rose-50 text-rose-600 rounded-lg text-sm"><i class="fa-solid fa-receipt"></i></span>
-                </div>
-                <div class="mt-3 flex items-baseline gap-2">
-                    <span class="text-2xl font-bold text-slate-900">9,045억 원</span>
-                    <span class="text-xs text-rose-500 font-medium">3년 연속 감소</span>
-                </div>
-                <p class="mt-2 text-xs text-slate-500 font-medium">
-                    1.2조 원의 괴리 = <span class="text-rose-600 font-bold">실현되지 않은 재고</span>
-                </p>
-            </div>
+<div class="sum-row">
+<div class="sum-c" style="border-color:rgba(5,150,105,.3);background:rgba(5,150,105,.04);"><div class="sum-icon">✅</div><div><div class="sum-v" style="color:var(--green);">A·B</div><div class="sum-l" style="color:var(--green);">Phase1 판매전략</div></div></div>
+<div class="sum-c" style="border-color:rgba(37,99,235,.3);background:rgba(37,99,235,.04);"><div class="sum-icon">📦</div><div><div class="sum-v" style="color:var(--accent);">+C</div><div class="sum-l" style="color:var(--accent);">Phase2 추가전략</div></div></div>
+<div class="sum-c" style="border-color:rgba(99,102,241,.3);background:rgba(99,102,241,.04);"><div class="sum-icon">⭐</div><div><div class="sum-v" style="color:var(--accent2);">+D</div><div class="sum-l" style="color:var(--accent2);">Phase3 추가전략</div></div></div>
+<div class="sum-c" style="border-color:var(--border);"><div class="sum-icon">🗺️</div><div><div class="sum-v" style="font-size:15px;">1→3~5→선택상권</div><div class="sum-l" style="color:var(--muted);">상권 확장 경로</div></div></div>
+</div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">친환경 인증면적 축소</span>
-                    <span class="p-2 bg-amber-50 text-amber-600 rounded-lg text-sm"><i class="fa-solid fa-wheat-awn-circle-exclamation"></i></span>
-                </div>
-                <div class="mt-3 flex items-baseline gap-2">
-                    <span class="text-2xl font-bold text-slate-900">68,165 ha</span>
-                    <span class="text-xs text-amber-600 font-medium">-16.7% 축소</span>
-                </div>
-                <p class="mt-2 text-xs text-slate-500 font-medium">
-                    2020년(81,827ha) 대비 공급 인프라 공동화
-                </p>
-            </div>
+<div class="section-card wide" id="goal">
+<div class="section-title">🎯 통합 목표 및 핵심 가설</div>
+<div class="sec-body"><span class="ph ph1">Phase1</span> 가장 리스키한 세 가정부터 최소 비용으로 검증합니다 — 공급자가 번거로움 없이 매일 등록해줄 것인가, 소비자가 이웃 동네까지 픽업하러 오거나 매장 배달을 이용할 만큼 매력을 느끼는가, 그리고 여러 마감할인 앱을 병행 이용하는 소비자가 하나로 통합된 앱으로 실제 전환할 의향이 있는가.
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start">
-                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400">소비자 비구매 원인 1위</span>
-                    <span class="p-2 bg-emerald-50 text-emerald-600 rounded-lg text-sm"><i class="fa-solid fa-tag"></i></span>
-                </div>
-                <div class="mt-3 flex items-baseline gap-2">
-                    <span class="text-2xl font-bold text-slate-900">65.1%</span>
-                    <span class="text-xs text-emerald-600 font-medium">가격 저항</span>
-                </div>
-                <p class="mt-2 text-xs text-slate-500 font-medium">
-                    시장 가격 프리미엄 67~96% (임계치 초과)
-                </p>
-            </div>
-        </div>
+<span class="ph ph2">Phase2</span> Phase1의 결과가 재현 가능한 모델인지 상권을 늘려 검증하고, 개별상품보다 꾸러미(B·C) 중심일 때 판매율과 폐기 손실 감소 효과가 커지는지 확인합니다.
 
-        <!-- Interactive Section / Tab Navigation -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-            <div class="flex flex-wrap border-b border-slate-200 bg-slate-100/60 p-2 gap-2" id="tab-headers">
-                <button onclick="switchTab('chart-view')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-bold transition-all bg-white text-emerald-700 shadow-sm flex items-center gap-2">
-                    <i class="fa-solid fa-chart-column"></i> 데이터 괴리 및 시장 규모 비교
-                </button>
-                <button onclick="switchTab('supply-view')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50 flex items-center gap-2">
-                    <i class="fa-solid fa-warehouse"></i> 공급망 및 재무 해자
-                </button>
-                <button onclick="switchTab('strategy-view')" class="tab-btn px-5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-600 hover:text-slate-900 hover:bg-white/50 flex items-center gap-2">
-                    <i class="fa-solid fa-chess-knight"></i> 단계별 진입 전략 & 트리거
-                </button>
-            </div>
+<span class="ph ph3">Phase3</span> 다상권 운영이 안정화된 뒤, 원기획서의 킬러 콘텐츠 — 타매장 연계 꾸러미, 레시피 자동 매칭, 탄소포인트 게이미피케이션 — 가 실제로 경쟁 우위와 재구매 주기 단축으로 이어지는지 검증합니다.
 
-            <!-- Tab Content 1: Charts & Data Discrepancy -->
-            <div id="chart-view" class="tab-content p-6 sm:p-8 space-y-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-4">
-                        <div class="inline-block px-3 py-1 bg-rose-100 text-rose-700 text-xs font-bold rounded-lg">Critical Diagnosis</div>
-                        <h3 class="text-xl font-bold text-slate-900">1.2조 원의 허상: KREI vs aT 실적 괴리</h3>
-                        <p class="text-sm text-slate-600 leading-relaxed">
-                            업계에서 인용되는 KREI의 2조 원대 전망치는 2017년 과거 지표를 답습한 <b>'좀비 통계'</b>입니다. 실제 소비자 소매 지출을 나타내는 aT 실적은 <b>2021년 1조 143억 원에서 2023년 9,045억 원으로 3년 연속 가파르게 하락</b>하고 있습니다.
-                        </p>
-                        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2 text-xs text-slate-700">
-                            <div class="flex justify-between font-semibold border-b border-slate-200 pb-1">
-                                <span>연도별 소매 실판매액 (aT)</span>
-                                <span>금액</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>2021년 확정</span>
-                                <span class="font-bold text-slate-900">1조 143억 원</span>
-                            </div>
-                            <div class="flex justify-between">
-                                <span>2022년 확정</span>
-                                <span class="font-bold text-slate-900">9,858억 원 (-2.8%)</span>
-                            </div>
-                            <div class="flex justify-between text-rose-600 font-medium">
-                                <span>2023년 확정</span>
-                                <span class="font-bold">9,045억 원 (-8.2%)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col items-center justify-center">
-                        <div class="w-full max-w-md h-72">
-                            <canvas id="marketComparisonChart"></canvas>
-                        </div>
-                        <span class="text-xs text-slate-400 mt-4 text-center">그림 1: KREI 출하·시산 기준 전망치 vs aT 소매 실판매 확정치 비교</span>
-                    </div>
-                </div>
-            </div>
+즉 전체 로드맵은 "① 되는 모델인가 → ② 재현되는 모델인가 → ③ 대체 불가능한 모델인가"를 순서대로 좁혀가는 구조입니다.</div>
+</div>
 
-            <!-- Tab Content 2: Supply & Competitor Moat -->
-            <div id="supply-view" class="tab-content hidden p-6 sm:p-8 space-y-8">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">
-                        <div class="p-3 bg-amber-100 text-amber-700 rounded-xl w-fit">
-                            <i class="fa-solid fa-triangle-exclamation text-lg"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-900 text-base">생산 기반의 붕괴 (원료 리스크)</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            친환경 인증면적은 2020년 81,827ha에서 2024년 68,165ha로 급감했습니다. 무농약 인증면적 또한 10.1% 줄어들며 <b>원료 조달 COGS(제조원가)의 영구적 상승</b>을 초래하고 있습니다.
-                        </p>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">
-                        <div class="p-3 bg-emerald-100 text-emerald-700 rounded-xl w-fit">
-                            <i class="fa-solid fa-shield-halved text-lg"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-900 text-base">기존 강자의 재무적 해자</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            업계 리더 <b>한살림</b>은 공급 규모 5,118억 원, <b>부채비율 31.2%</b>의 극단적 재무 안정성과 100만 충성 조합원을 보유. 단기간 내 가격 경쟁력 확보가 불가능합니다.
-                        </p>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">
-                        <div class="p-3 bg-rose-100 text-rose-700 rounded-xl w-fit">
-                            <i class="fa-solid fa-store-slash text-lg"></i>
-                        </div>
-                        <h4 class="font-bold text-slate-900 text-base">오프라인 모델의 붕괴 사례</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            <b>초록마을</b>이 납품업체 172곳에 258억 원의 상거래채권을 미지급하며 회생 절차에 진입한 것은 고정비 부담이 큰 오프라인 프랜차이즈 모델의 한계를 증명합니다.
-                        </p>
-                    </div>
-                </div>
+<div class="section-card wide" id="scope">
+<div class="section-title">📐 통합 범위 매트릭스 (영역별 Phase 진행)</div>
+<table class="scope-table">
+<tr><th style="width:16%">영역</th><th><span class="ph ph1">Phase 1</span></th><th><span class="ph ph2">Phase 2</span></th><th><span class="ph ph3">Phase 3</span></th></tr>
+<tr><td><b>판매 전략</b></td><td>A. 개별상품<br>B. 공급자 설정 꾸러미</td><td>+ C. 플랫폼 추천 꾸러미(매장단독)</td><td>+ D. 타매장 연계 꾸러미(15% 자동할인 합산가)</td></tr>
+<tr><td><b>수령/동선</b></td><td>픽업 + 배달(매장 자체/배달대행)</td><td>(변경없음, Phase1 방식 유지)</td><td>D(타매장연계)만 다중매장 픽업 동선 최적화 지도 UI — 픽업 전용 유지</td></tr>
+<tr><td><b>매장 배달 설정</b></td><td>'직접배달 가능여부'·'배달비 조건' 점주 직접 입력(최소 필드, 플랫폼 계산·개입 없음)</td><td>(변경없음)</td><td>(변경없음, D는 예외)</td></tr>
+<tr><td><b>재고 관리</b></td><td>수동 등록 + 전일 원클릭 재등록</td><td>바코드 스캔 또는 POS 연동(1개 방식)</td><td>(변경없음, Phase2 방식 유지)</td></tr>
+<tr><td><b>추천/매칭 로직</b></td><td>거리순·마감임박순 단순정렬</td><td>판매율 가중치 정렬 + 품절시 꾸러미 실시간 재구성</td><td>당일 재고 기반 Top5 레시피 자동 매칭 → 관련 꾸러미 상위노출</td></tr>
+<tr><td><b>참여 요소</b></td><td>(선택) 간단 리뷰/별점</td><td>(변경없음)</td><td>탄소포인트 적립(0.5%) + 에코왕 랭킹·분기 시상</td></tr>
+<tr><td><b>정산</b></td><td>주문수수료 10% 자동 정산(배달비 제외, 배달비는 매장↔배달업체 자체 정산)</td><td>공급자용 정산 대시보드</td><td>연계 꾸러미 매출 매장별 기여 비율 자동 분배</td></tr>
+<tr><td><b>상권 범위</b></td><td>1개 상권(파일럿)</td><td>3~5개 상권 확대 + 카테고리 필터</td><td>매장 밀도 높은 1~2개 상권 우선 검증</td></tr>
+<tr><td><b>운영/CS</b></td><td>품질 1차책임 약관, 최소 검수 체크리스트</td><td>CS 프로세스 정식화</td><td>매장간 정산 분쟁 방지 약관 + 포인트 어뷰징 방지 정책</td></tr>
+</table>
+</div>
 
-                <div class="bg-emerald-900 text-white p-6 rounded-2xl shadow-inner flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div class="space-y-2">
-                        <span class="bg-emerald-700 text-emerald-100 text-xs px-2.5 py-1 rounded-full font-semibold">유일한 생존 채널 벤치마크</span>
-                        <h4 class="text-lg font-bold">오아시스마켓 모델</h4>
-                        <p class="text-xs text-emerald-200/90 max-w-2xl leading-relaxed">
-                            오프라인 전문점 모델이 붕괴하는 가운데, 온라인 새벽배송 기반의 <b>오아시스마켓</b>이 유일하게 영업 흑자를 기록 중입니다. 신규 진입자는 반드시 <b>온라인 플랫폼 중심의 고효율 구조</b>를 지향해야 합니다.
-                        </p>
-                    </div>
-                    <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center shrink-0">
-                        <span class="block text-xs text-emerald-300">온라인/새벽배송 세그먼트 성장률</span>
-                        <span class="text-2xl font-black text-white">+35.1%</span>
-                    </div>
-                </div>
-            </div>
+<div class="section-card wide" id="roadmap">
+<div class="section-title">🗺️ 통합 로드맵 (Gate 조건 포함)</div>
+<div class="phase-row">
+<div class="phase p1"><div class="phase-h">Phase 1 · MVP 검증</div><div class="phase-body">1개 상권, 공급자 10~20곳
+판매전략 A·B, 픽업+배달(매장 자체/배달대행)
+소비자 통합 탐색 니즈·전환의향 병행 검증
+→ Go조건: 공급자 잔존율·소비자 재구매율 목표치 도달</div></div>
+<div class="phase p2"><div class="phase-h">Phase 2 · 확장</div><div class="phase-body">3~5개 상권으로 재현성 검증
+전략C 추가, 바코드/POS 도입
+→ Go조건: 신규상권 KPI가 Phase1 대비 유지, 매장밀도 확보</div></div>
+<div class="phase p3"><div class="phase-h">Phase 3 · 차별화</div><div class="phase-body">고밀도 1~2개 상권 우선 적용
+전략D, 레시피매칭, 게이미피케이션
+→ Go조건: 개발리소스 확보, 정산분배 로직 검증</div></div>
+</div>
+</div>
 
-            <!-- Tab Content 3: Strategy & Triggers -->
-            <div id="strategy-view" class="tab-content hidden p-6 sm:p-8 space-y-8">
-                <div>
-                    <h3 class="text-xl font-bold text-slate-900 mb-2">단계별 로드맵 (Low-Risk, High-Efficiency)</h3>
-                    <p class="text-sm text-slate-600 mb-6">자체 브랜드로 오프라인에 직접 진입하는 대신, 검증된 세그먼트를 통한 점진적 진입을 권장합니다.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="border border-emerald-200 bg-emerald-50/50 p-6 rounded-2xl space-y-3 relative">
-                            <span class="absolute top-4 right-4 bg-emerald-600 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs">1</span>
-                            <h4 class="font-bold text-emerald-900">1단계: 저위험 공급</h4>
-                            <p class="text-xs text-slate-700 leading-relaxed">
-                                이마트 자연주의 등 <b>대형마트 PB 및 온라인 플랫폼(오아시스, 컬리) 대상 유기가공식품 OEM/ODM 공급</b>. 마케팅 비용을 최소화하고 제조 역량을 검증합니다.
-                            </p>
-                        </div>
-                        <div class="border border-slate-200 bg-slate-50 p-6 rounded-2xl space-y-3 relative">
-                            <span class="absolute top-4 right-4 bg-slate-700 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs">2</span>
-                            <h4 class="font-bold text-slate-900">2단계: D2C 확장</h4>
-                            <p class="text-xs text-slate-700 leading-relaxed">
-                                플랫폼 내 성과가 검증된 품목을 중심으로 리스크가 낮은 <b>온라인 전용 자체 브랜드(Online-Only Brand)</b>를 론칭하여 충성 고객을 확보합니다.
-                            </p>
-                        </div>
-                        <div class="border border-slate-200 bg-slate-50 p-6 rounded-2xl space-y-3 relative">
-                            <span class="absolute top-4 right-4 bg-slate-700 text-white w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs">3</span>
-                            <h4 class="font-bold text-slate-900">3단계: 선택적 확장</h4>
-                            <p class="text-xs text-slate-700 leading-relaxed">
-                                시장 반등 트리거 포인트(Trigger Points)가 완벽히 충족될 경우에만 제한적으로 오프라인 진출 및 플래그십 확장을 재검토합니다.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+<div class="card-grid" id="flow">
 
-                <div class="border-t border-slate-200 pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-rose-50 border border-rose-200 p-6 rounded-2xl space-y-3">
-                        <div class="flex items-center gap-2 text-rose-700 font-bold text-sm">
-                            <i class="fa-solid fa-ban"></i> 진입 중단 임계치 (Immediate Exit)
-                        </div>
-                        <p class="text-xs text-rose-900/80 leading-relaxed">
-                            친환경 인증면적이 <b>6만 ha 미만으로 지속 감소</b>할 경우, 국산 원료 기반 사업은 경제적 타당성을 상실한 것으로 간주하고 투자를 즉시 철수합니다.
-                        </p>
-                    </div>
+<div class="section-card">
+<div class="section-title">👤 소비자 플로우 (Phase별 누적)</div>
+<div class="flow-step"><div class="flow-n">1</div><div class="flow-t"><span class="ph ph1">P1</span> 최초 가입·이용 시 병행 이용 중인 마감할인 앱 개수와 통합 앱 전환 의향을 짧은 설문으로 확인(후속 검증질문: "현재 마감할인 혜택을 찾기 위해 편의점 앱·배달앱 마감할인 탭·럭키밀 등 평균 몇 개의 앱을 열어 비교하시나요? 반경 내 모든 마감할인 재고를 한 화면에 통합해 보여주는 앱이 있다면 전환할 의향이 있으신가요?")</div></div>
+<div class="flow-step"><div class="flow-n">2</div><div class="flow-t"><span class="ph ph1">P1</span> 위치기준 3~5km 마감임박 상품/꾸러미 리스트 확인(거리·마감임박순)</div></div>
+<div class="flow-step"><div class="flow-n">3</div><div class="flow-t"><span class="ph ph2">P2</span> 판매율 가중치 반영 정렬 + 카테고리 필터로 원하는 상품군 탐색, 플랫폼 추천 꾸러미(C) 함께 노출</div></div>
+<div class="flow-step"><div class="flow-n">4</div><div class="flow-t"><span class="ph ph3">P3</span> "오늘 뭐먹지?" 레시피 배너 → Top5 레시피에 연동된 타매장 연계 꾸러미(D) 선택</div></div>
+<div class="flow-step"><div class="flow-n">5</div><div class="flow-t"><span class="ph ph1">P1</span> 수령 방식(픽업 또는 매장 지원 시 배달) 선택 → 결제. 배달 선택 시 매장이 안내한 배달비 조건 확인(플랫폼 비개입) &nbsp;/&nbsp; <span class="ph ph3">P3</span> D 선택시 다중매장 최단동선 지도 제공(픽업 전용)</div></div>
+<div class="flow-step"><div class="flow-n">6</div><div class="flow-t"><span class="ph ph3">P3</span> 결제시 탄소포인트 자동적립, 마이페이지에서 에코왕 랭킹 실시간 확인</div></div>
+<div class="flow-step"><div class="flow-n">7</div><div class="flow-t"><span class="ph ph1">P1</span> 픽업 또는 배달 수령 완료 처리 및 (선택) 리뷰 남기기</div></div>
+</div>
 
-                    <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl space-y-3">
-                        <div class="flex items-center gap-2 text-emerald-700 font-bold text-sm">
-                            <i class="fa-solid fa-flag-checkered"></i> 본격 확장 트리거 (Scale-up Triggers)
-                        </div>
-                        <ul class="text-xs text-emerald-900/80 space-y-1.5 list-disc list-inside">
-                            <li>aT 소매 매출액이 <b>1.1조 원(2021년 수준)을 2년 연속 상회</b></li>
-                            <li>온라인 채널 비중이 전체 시장의 <b>40%를 돌파</b></li>
-                            <li>대형마트 PB 제품의 영업이익률이 안정적으로 방어됨</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="section-card">
+<div class="section-title">🏪 공급자 플로우 (Phase별 누적)</div>
+<div class="flow-step"><div class="flow-n">1</div><div class="flow-t"><span class="ph ph1">P1</span> Admin에서 마감임박 재고 수동 등록(사진/가격/수량/마감시각), 전일 원클릭 재등록. 매장 설정에서 '직접배달 가능여부·배달비 조건' 최초 1회 입력(플랫폼 비개입)</div></div>
+<div class="flow-step"><div class="flow-n">2</div><div class="flow-t"><span class="ph ph2">P2</span> 바코드 스캔 또는 POS 연동으로 등록 방식 고도화, 시스템 제안 꾸러미(C) 승인/수정</div></div>
+<div class="flow-step"><div class="flow-n">3</div><div class="flow-t"><span class="ph ph3">P3</span> 타매장 연계 꾸러미(D) 참여 사전 동의, 레시피 매칭 노출 현황 확인</div></div>
+<div class="flow-step"><div class="flow-n">4</div><div class="flow-t"><span class="ph ph1">P1</span> 주문알림 수신(픽업/배달 구분) → 상품 준비, 배달 주문은 매장 자체 배달 또는 배달대행사로 발송 → 수령확인 처리</div></div>
+<div class="flow-step"><div class="flow-n">5</div><div class="flow-t"><span class="ph ph2">P2</span> 정산 대시보드에서 개별상품 vs 꾸러미 매출·폐기감소분 확인(배달비 제외), CS는 정식 프로세스로 처리</div></div>
+<div class="flow-step"><div class="flow-n">6</div><div class="flow-t"><span class="ph ph3">P3</span> 연계 꾸러미 매출은 매장별 기여 비율에 따른 자동 분배 정산 확인</div></div>
+</div>
 
-    </main>
+</div>
 
-    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-xs gap-4">
-            <p>© 2026 시장지능(Market Intelligence) 전략기획본부. All rights reserved.</p>
-            <div class="flex items-center space-x-6">
-                <span>데이터 소스: 한국농촌경제연구원(KREI), 한국농수산식품유통공사(aT)</span>
-            </div>
-        </div>
-    </footer>
+<div class="section-card wide" id="feature">
+<div class="section-title">🧩 통합 기능 명세</div>
+<div class="sec-body">[소비자 앱/웹]
+<span class="ph ph1">P1</span> 홈 상품/꾸러미 리스트, 상세페이지(매장 배달조건 표시 포함), 수령방식(픽업/배달) 선택, 결제/픽업번호 발급, 마이페이지 주문내역
+<span class="ph ph2">P2</span> 판매율 가중치 정렬, 카테고리 필터, 추천꾸러미(C) 카드 노출
+<span class="ph ph3">P3</span> 레시피 추천 배너/상세, 연계꾸러미 상세(참여매장·합산가·동선지도, 픽업 전용), 탄소포인트·에코왕 랭킹 UI
 
-    <!-- Chart.js Script for Data Visualization -->
-    <script>
-        // Tab Switching Logic
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(tabId).classList.remove('hidden');
+[공급자 Admin]
+<span class="ph ph1">P1</span> 재고 등록(사진/가격/수량/마감시각), 원클릭 재등록, 꾸러미 구성, 매장 설정('직접배달 가능여부'·'배달비 조건' 최소 입력, 플랫폼 계산 개입 없음), 주문관리(픽업/배달 구분), 정산조회(배달비 제외)
+<span class="ph ph2">P2</span> 바코드/POS 연동, 추천꾸러미(C) 승인관리, 정산 대시보드, CS 상태 트래킹
+<span class="ph ph3">P3</span> 연계꾸러미 참여동의, 연계정산 항목, 레시피 매칭 노출조회
 
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-white', 'text-emerald-700', 'shadow-sm');
-                btn.classList.add('text-slate-600', 'hover:bg-white/50');
-            });
-            event.currentTarget.classList.add('bg-white', 'text-emerald-700', 'shadow-sm');
-            event.currentTarget.classList.remove('text-slate-600', 'hover:bg-white/50');
-        }
+[공통/운영]
+<span class="ph ph1">P1</span> 주문수수료 자동계산(배달비 제외), 품절시 자동 비노출, 품질책임 약관 고지 + 배달비·배송 플랫폼 비개입 고지
+<span class="ph ph2">P2</span> 상권 관리자 화면(공급자수·KPI 모니터링), 꾸러미 실시간 재구성 로직
+<span class="ph ph3">P3</span> 레시피DB 관리, 동선최적화 엔진, 연계매출 자동분배 로직, 어뷰징 방지 정책</div>
+</div>
 
-        // Initialize Chart.js
-        window.addEventListener('DOMContentLoaded', () => {
-            const ctx = document.getElementById('marketComparisonChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['2021년', '2022년', '2023년 / 2025년 전망'],
-                    datasets: [
-                        {
-                            label: 'KREI 전망치 (출하·시산)',
-                            data: [19500, 20400, 21360],
-                            backgroundColor: '#94a3b8',
-                            borderRadius: 6,
-                        },
-                        {
-                            label: 'aT 소매실적 (실판매)',
-                            data: [10143, 9858, 9045],
-                            backgroundColor: '#16a34a',
-                            borderRadius: 6,
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    family: 'Pretendard',
-                                    size: 11
-                                },
-                                boxWidth: 12
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += context.parsed.y.toLocaleString() + ' 억원';
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return value.toLocaleString() + '억';
-                                },
-                                font: {
-                                    size: 10
-                                }
-                            },
-                            grid: {
-                                color: '#f1f5f9'
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            },
-                            ticks: {
-                                font: {
-                                    size: 10
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        });
-    </script>
+<div class="card-grid" id="kpi">
+
+<div class="section-card">
+<div class="section-title">📊 통합 성공지표 (Phase별 핵심 KPI)</div>
+<div class="sec-body"><span class="ph ph1">P1</span> 공급자 잔존율(4주 후 주3회↑ 등록) · 재고 소진율 · 재구매율 · 주문 이행률(픽업·배달 합산)
+
+<span class="ph ph2">P2</span> 신규상권 KPI 격차(Phase1 대비 유지율) · 꾸러미(B+C) 판매비중 · C 꾸러미 전환율 · 등록 소요시간 감소율
+
+<span class="ph ph3">P3</span> 연계꾸러미(D) 판매비중·객단가 · 레시피매칭 전환율 · 포인트 도입 전후 재구매주기 변화 · 에코왕 참여율</div>
+</div>
+
+<div class="section-card" id="risk">
+<div class="section-title">⚠️ 통합 리스크</div>
+<div class="sec-body"><span class="ph ph1">P1</span> 공급자 등록 번거로움에 따른 이탈, 노쇼, 품질분쟁 책임소재, 배달비·배송 분쟁의 매장-배달업체 자체 처리 위임에 따른 고지 이슈, 소비자의 기존 앱 병행 사용 습관이 강해 통합 앱으로의 전환 의향이 예상보다 낮을 가능성
+
+<span class="ph ph2">P2</span> 다상권 CS인력 부족, 추천알고리즘 매장편중, 연동 초기 오등록
+
+<span class="ph ph3">P3</span> 매장간 정산분배 분쟁, D(타매장연계) 동선오류로 픽업 마감 놓침, 포인트 어뷰징, 레시피 매칭 정확도 부족</div>
+</div>
+
+</div>
+
+<div class="section-card wide" id="next">
+<div class="section-title">✅ 통합 Next Step (Phase 전환 Gate 순서)</div>
+<div class="sec-body">1. <span class="ph ph1">P1</span> 소비자 대상 통합 탐색 니즈 검증 — 반경 3~5km 타겟 고객에게 병행 이용 앱 개수와 통합 앱 전환 의향을 확인(후속 검증질문: "현재 마감할인 혜택을 찾기 위해 편의점 앱(우리동네GS 등), 배달앱 마감할인 탭, 럭키밀 등 평균 몇 개의 앱을 열어 비교하시나요? 반경 내 모든 마감할인 재고를 한 화면에 통합해 보여주는 앱이 있다면 전환할 의향이 있으신가요?")
+2. <span class="ph ph1">P1</span> 공급자 수요조사·인터뷰(직접배달 운영여부 포함) → 파일럿 상권 확정 → Admin 프로토타입 제작(매장 배달설정 필드 포함) → 이용약관에 배달 비개입 원칙 명시 → 4주 파일럿 운영
+3. <span class="ph ph1">P1→P2</span> Gate: 공급자 잔존율·재구매율 목표 달성 확인
+4. <span class="ph ph2">P2</span> 바코드/POS 방식 확정 → 확장 상권 3~5곳 선정 → 추천꾸러미 룰 설계 → 4~6주 운영
+5. <span class="ph ph2">P2→P3 Gate</span>: 신규상권 KPI 유지 + 매장밀도 확보 확인
+6. <span class="ph ph3">P3</span> 레시피DB 구축 → 고밀도 상권 선정 → 정산분배·약관 설계 → 어뷰징 방지 정책 수립 → 소규모 파일럿 → 전체 확산 판단</div>
+</div>
+
+</div>
+<div class="footer">통합 MVP 기획서 (Phase 1~3 단일 문서) · 원기획서 기준일 2026-08-24 · 작성일 2026-08-25 · 최종 업데이트 2026-09-05(공급자 범위 재정의 및 소비자 통합탐색 검증 항목 반영)</div>
+</div>
 </body>
 </html>
